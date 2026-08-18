@@ -267,6 +267,16 @@
     font-weight: 600;
   }
   .card-title .role{ color: var(--ink-faint); font-weight: 500; }
+  .card-title .title-link{
+    text-decoration: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .card-title .title-link:hover, .card-title .title-link:focus-visible{
+    color: var(--accent);
+    border-color: var(--accent);
+  }
 
   .card-date{
     font-family: var(--mono);
@@ -409,11 +419,12 @@
 
     <div class="sidebar-footer">
       <div class="social-links">
-        <a href="#" target="_blank" rel="noopener">GitHub</a>
-        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="mailto:your.email@example.com">Email</a>
+        <a href="https://github.com/fairuzzahirah" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/fairuzlabs" target="_blank" rel="noopener">GitHub Labs</a>
+        <a href="https://linkedin.com/in/fairuzzahirah" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:fairuzza.fza@gmail.com">Email</a>
       </div>
-      <div class="location-line">D4 Software Engineering Tech · UGM Sekolah Vokasi</div>
+      <div class="location-line">Gresik, Indonesia · +62 812-5204-1144</div>
     </div>
   </aside>
 
@@ -441,7 +452,7 @@
 
       <article class="card">
         <div class="card-head">
-          <div class="card-title">RW 18 Nambangan <span class="role">— Full-Stack Developer (KKN)</span></div>
+          <div class="card-title"><a href="https://proklim-nambangan.vercel.app" target="_blank" rel="noopener" class="title-link">RW 18 Nambangan</a> <span class="role">— Full-Stack Developer (KKN)</span></div>
           <div class="card-date">JUN — JUL 2026</div>
         </div>
         <div class="status-line status-latest"><span class="dot"></span>Latest · Shipped &amp; handed off</div>
@@ -531,7 +542,7 @@
     <section id="contact">
       <div class="section-label"><span class="idx">04</span> Contact</div>
       <p>Open to research assistant roles, backend engineering work, and anything at the intersection of systems and data. The fastest way to reach me is by email.</p>
-      <a class="contact-cta" href="mailto:your.email@example.com">Say hello →</a>
+      <a class="contact-cta" href="mailto:fairuzza.fza@gmail.com">Say hello →</a>
 
       <footer class="page-footer">
         Built with HTML, CSS &amp; a little bit of KKN-deployment muscle memory.
