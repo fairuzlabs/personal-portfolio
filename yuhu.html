@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fairuz Zahirah Abhista — Backend Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F5F6F2;
+    --bg-card: #FFFFFF;
+    --ink: #14181C;
+    --ink-soft: #57626C;
+    --ink-faint: #8A9299;
+    --accent: #1F5673;
+    --accent-soft: #DCE8EA;
+    --ok: #3D8361;
+    --warn: #C97D2E;
+    --line: #DCDED6;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --disp: 'Space Grotesk', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.6;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-attachment: fixed;
+    background-position: -1px -1px;
+  }
+
+  a { color: inherit; }
+  ::selection { background: var(--accent); color: #fff; }
+
+  .layout{
+    display: flex;
+    max-width: 1240px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+
+  /* ---------- SIDEBAR ---------- */
+  .sidebar{
+    width: 340px;
+    flex-shrink: 0;
+    padding: 72px 40px 40px 48px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .brand-name{
+    font-family: var(--disp);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .brand-role{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top: 10px;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .pulse-dot{
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--ok);
+    box-shadow: 0 0 0 0 rgba(61,131,97,0.5);
+    animation: pulse 2.4s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse{
+    0%{ box-shadow: 0 0 0 0 rgba(61,131,97,0.45); }
+    70%{ box-shadow: 0 0 0 8px rgba(61,131,97,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(61,131,97,0); }
+  }
+
+  .brand-desc{
+    margin-top: 24px;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    max-width: 30ch;
+  }
+
+  nav ul{
+    list-style: none;
+    margin-top: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  nav a{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
+  nav a .bar{
+    width: 24px; height: 1px; background: var(--ink-faint);
+    transition: width 0.2s ease, background 0.2s ease;
+  }
+  nav a:hover, nav a:focus-visible{ color: var(--ink); }
+  nav a:hover .bar, nav a:focus-visible .bar{ width: 40px; background: var(--accent); }
+  nav a.active{ color: var(--ink); }
+  nav a.active .bar{ width: 40px; background: var(--accent); }
+
+  .sidebar-footer{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .social-links{ display:flex; gap: 18px; }
+  .social-links a{
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .social-links a:hover, .social-links a:focus-visible{
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .location-line{
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+
+  /* ---------- MAIN CONTENT ---------- */
+  main{
+    flex: 1;
+    padding: 96px 56px 120px 8px;
+    max-width: 760px;
+  }
+
+  section{ margin-bottom: 108px; scroll-margin-top: 48px; }
+
+  .section-label{
+    display:flex; align-items:center; gap: 14px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 28px;
+  }
+  .section-label::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background: var(--line);
+  }
+  .section-label .idx{ color: var(--ink-faint); }
+
+  #about p{
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin-bottom: 16px;
+    font-size: 1.02rem;
+  }
+  #about strong{ color: var(--ink); font-weight: 600; }
+
+  /* --- timeline strip (signature element) --- */
+  .timeline{
+    display: flex;
+    align-items: center;
+    margin-bottom: 44px;
+    padding: 20px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow-x: auto;
+  }
+  .timeline-track{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    min-width: 460px;
+  }
+  .timeline-track::before{
+    content:'';
+    position: absolute;
+    top: 5px; left: 4px; right: 4px;
+    height: 2px;
+    background: var(--line);
+  }
+  .tl-node{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 60px;
+  }
+  .tl-node .dot{
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--bg-card);
+    border: 2px solid var(--accent);
+    z-index: 1;
+  }
+  .tl-node.now .dot{ background: var(--ok); border-color: var(--ok); }
+  .tl-node .lbl{ font-family: var(--mono); font-size: 0.68rem; color: var(--ink-faint); }
+  .tl-node.now .lbl{ color: var(--ok); font-weight: 600; }
+
+  /* --- experience cards --- */
+  .card{
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 26px 28px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover{
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -12px rgba(20,24,28,0.15);
+  }
+
+  .card-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+
+  .card-title{
+    font-family: var(--disp);
+    font-size: 1.08rem;
+    font-weight: 600;
+  }
+  .card-title .role{ color: var(--ink-faint); font-weight: 500; }
+
+  .card-date{
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  .status-line{
+    display:flex; align-items:center; gap: 8px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+  }
+  .status-line .dot{ width: 6px; height: 6px; border-radius: 50%; }
+  .status-shipped .dot{ background: var(--ok); }
+  .status-shipped{ color: var(--ok); }
+  .status-latest .dot{ background: var(--warn); }
+  .status-latest{ color: var(--warn); }
+
+  .card p{ color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 16px; max-width: 60ch; }
+
+  .tags{ display: flex; flex-wrap: wrap; gap: 8px; }
+  .tags span{
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 4px 10px;
+    border-radius: 5px;
+  }
+
+  /* --- skills --- */
+  .skills-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 40px;
+  }
+  .skill-group h4{
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+  }
+  .skill-group ul{ list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .skill-group li{
+    font-size: 0.94rem;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .skill-group li::before{
+    content:'';
+    width: 4px; height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* --- contact --- */
+  #contact p{
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin-bottom: 28px;
+  }
+  .contact-cta{
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 0.92rem;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 14px 22px;
+    border: 1px solid var(--ink);
+    border-radius: 8px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .contact-cta:hover, .contact-cta:focus-visible{
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  footer.page-footer{
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+  }
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width: 900px){
+    .layout{ flex-direction: column; }
+    .sidebar{
+      position: relative;
+      width: 100%;
+      height: auto;
+      padding: 40px 24px 32px;
+    }
+    nav ul{ margin-top: 32px; flex-direction: row; flex-wrap: wrap; gap: 20px; }
+    .sidebar-footer{ margin-top: 32px; }
+    main{ padding: 8px 24px 80px; max-width: 100%; }
+    .skills-grid{ grid-template-columns: 1fr; }
+    .timeline-track{ min-width: 420px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    .pulse-dot{ animation: none; }
+    .card{ transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div>
+      <h1 class="brand-name">Fairuz Zahirah<br>Abhista</h1>
+      <div class="brand-role"><span class="pulse-dot"></span> Backend Engineer</div>
+      <p class="brand-desc">Building reliable APIs, data-backed systems, and the infrastructure underneath them.</p>
+
+      <nav>
+        <ul>
+          <li><a href="#about" class="nav-link"><span class="bar"></span>About</a></li>
+          <li><a href="#experience" class="nav-link"><span class="bar"></span>Experience</a></li>
+          <li><a href="#skills" class="nav-link"><span class="bar"></span>Skills</a></li>
+          <li><a href="#contact" class="nav-link"><span class="bar"></span>Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="social-links">
+        <a href="#" target="_blank" rel="noopener">GitHub</a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:your.email@example.com">Email</a>
+      </div>
+      <div class="location-line">D4 Software Engineering Tech · UGM Sekolah Vokasi</div>
+    </div>
+  </aside>
+
+  <main>
+
+    <section id="about">
+      <div class="section-label"><span class="idx">01</span> About</div>
+      <p>I'm a seventh-semester <strong>Software Engineering Technology</strong> student at Universitas Gadjah Mada's Sekolah Vokasi, with a backend-leaning profile built around <strong>databases, business logic, and system design</strong>.</p>
+      <p>Most of what I know, I learned by shipping: a crowdfunding platform in Laravel, a role-based admin system in React, an AI-driven ERP chatbot, and — most recently — a full-stack community platform built and deployed end-to-end on my own infrastructure during KKN.</p>
+      <p>I'm currently exploring <strong>observability and distributed systems</strong> as a thesis direction, and building a small NLP portfolio on the side while applying for research assistant roles at the intersection of computational methods and social science.</p>
+    </section>
+
+    <section id="experience">
+      <div class="section-label"><span class="idx">02</span> Experience</div>
+
+      <div class="timeline" aria-label="Semester timeline">
+        <div class="timeline-track">
+          <div class="tl-node"><div class="dot"></div><div class="lbl">Third Semester</div></div>
+          <div class="tl-node"><div class="dot"></div><div class="lbl">Fourth Semester</div></div>
+          <div class="tl-node"><div class="dot"></div><div class="lbl">Fifth Semester</div></div>
+          <div class="tl-node"><div class="dot"></div><div class="lbl">Sixth Semester</div></div>
+          <div class="tl-node now"><div class="dot"></div><div class="lbl">Seventh Semester</div></div>
+        </div>
+      </div>
+
+      <article class="card">
+        <div class="card-head">
+          <div class="card-title">RW 18 Nambangan <span class="role">— Full-Stack Developer (KKN)</span></div>
+          <div class="card-date">JUN — JUL 2026</div>
+        </div>
+        <div class="status-line status-latest"><span class="dot"></span>Latest · Shipped &amp; handed off</div>
+        <p>Built a full-stack community platform covering climate program (ProKlim) documentation, news, podcasts, an interactive map, and a digital archive. Deployed independently on Oracle Cloud — Docker, Nginx, Certbot — and resolved production issues including build OOM and CORS. Handed off to local youth organization as non-technical admins.</p>
+        <div class="tags"><span>Go</span><span>Next.js</span><span>PostgreSQL</span><span>Docker</span><span>Oracle Cloud</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <div class="card-title">PT. Madana Innovation Technology <span class="role">— Backend Developer Intern</span></div>
+          <div class="card-date">FEB — JUL 2026</div>
+        </div>
+        <div class="status-line status-shipped"><span class="dot"></span>Shipped</div>
+        <p>Built APIs for a school ERP system and an AI-powered chatbot letting students check bills and class schedules by student ID, with an authorization flow based on parent phone number or student ID as verification.</p>
+        <div class="tags"><span>REST API</span><span>AI Chatbot</span><span>ERP</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <div class="card-title">PANDJI <span class="role">— Frontend Developer</span></div>
+          <div class="card-date">AUG 2025 — JAN 2026</div>
+        </div>
+        <div class="status-line status-shipped"><span class="dot"></span>Shipped</div>
+        <p>Owned the frontend for a multi-role access system (superadmin, admin, and more) with manual approval workflows — from component architecture through backend integration.</p>
+        <div class="tags"><span>React</span><span>Next.js</span><span>RBAC</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <div class="card-title">Fundation <span class="role">— Backend Developer</span></div>
+          <div class="card-date">AUG 2024 — JUL 2025</div>
+        </div>
+        <div class="status-line status-shipped"><span class="dot"></span>Shipped</div>
+        <p>Developed the backend for a crowdfunding platform connecting sponsors and event organizers. Owned API development and data integration, and contributed to frontend work and shared-hosting deployment.</p>
+        <div class="tags"><span>Laravel</span><span>REST API</span><span>cPanel</span></div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <div class="card-title">D4 Health Information Management, UGM <span class="role">— Teaching Assistant, Database Systems</span></div>
+          <div class="card-date">AUG 2024 — JAN 2025</div>
+        </div>
+        <div class="status-line status-shipped"><span class="dot"></span>Shipped</div>
+        <p>Supported the database systems course: guided lab sessions, graded assignments and reports, helped write exam questions, and taught select course material.</p>
+        <div class="tags"><span>SQL</span><span>Database Design</span><span>Teaching</span></div>
+      </article>
+    </section>
+
+    <section id="skills">
+      <div class="section-label"><span class="idx">03</span> Skills</div>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h4>Languages &amp; Frameworks</h4>
+          <ul>
+            <li>Go</li>
+            <li>Laravel / PHP</li>
+            <li>JavaScript / TypeScript</li>
+            <li>React &amp; Next.js</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h4>Data &amp; Infrastructure</h4>
+          <ul>
+            <li>PostgreSQL &amp; SQL</li>
+            <li>Docker</li>
+            <li>Nginx / Oracle Cloud</li>
+            <li>Linux administration</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h4>Currently Exploring</h4>
+          <ul>
+            <li>Observability (Prometheus, OpenTelemetry)</li>
+            <li>Python &amp; pandas</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h4>Also Comfortable With</h4>
+          <ul>
+            <li>Database design</li>
+            <li>Business logic &amp; algorithms</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-label"><span class="idx">04</span> Contact</div>
+      <p>Open to research assistant roles, backend engineering work, and anything at the intersection of systems and data. The fastest way to reach me is by email.</p>
+      <a class="contact-cta" href="mailto:your.email@example.com">Say hello →</a>
+
+      <footer class="page-footer">
+        Built with HTML, CSS &amp; a little bit of KKN-deployment muscle memory.
+      </footer>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  const links = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('main section');
+  const setActive = () => {
+    let current = sections[0].id;
+    sections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top <= 140) current = sec.id;
+    });
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
+  };
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+</script>
+
+</body>
+</html>
