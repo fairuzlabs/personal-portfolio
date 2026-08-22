@@ -18,6 +18,8 @@
     --accent-soft: #DCE8EA;
     --ok: #3D8361;
     --warn: #C97D2E;
+    --plum: #6B4C7A;
+    --plum-soft: #EBE3EE;
     --line: #DCDED6;
     --mono: 'IBM Plex Mono', monospace;
     --sans: 'IBM Plex Sans', sans-serif;
@@ -298,6 +300,8 @@
   .status-shipped{ color: var(--ok); }
   .status-latest .dot{ background: var(--warn); }
   .status-latest{ color: var(--warn); }
+  .status-draft .dot{ background: var(--ink-faint); }
+  .status-draft{ color: var(--ink-faint); }
 
   .card p{ color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 16px; max-width: 60ch; }
 
@@ -311,7 +315,112 @@
     border-radius: 5px;
   }
 
-  /* --- skills --- */
+  /* --- research cards (method / finding readout) --- */
+  .research-card{
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 26px 28px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .research-card:hover{
+    border-color: var(--plum);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -12px rgba(20,24,28,0.15);
+  }
+  .research-card.is-draft:hover{
+    border-color: var(--line);
+    transform: none;
+    box-shadow: none;
+  }
+
+  .research-title{
+    font-family: var(--disp);
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .research-card .tags{ margin-bottom: 0; }
+
+  .research-links{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+  .research-links a{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    color: var(--plum);
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid var(--plum-soft);
+    border-radius: 6px;
+    background: var(--plum-soft);
+    white-space: nowrap;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  }
+  .research-links a:hover, .research-links a:focus-visible{
+    background: var(--plum);
+    border-color: var(--plum);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+  .research-links a.secondary{
+    background: transparent;
+    border-color: var(--line);
+    color: var(--ink-soft);
+  }
+  .research-links a.secondary:hover, .research-links a.secondary:focus-visible{
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+
+  .research-dek{
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+    max-width: 60ch;
+  }
+
+  .readout{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 24px;
+    margin-bottom: 18px;
+    padding: 16px 18px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+  .readout-item h5{
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--plum);
+    margin-bottom: 6px;
+  }
+  .readout-item p{
+    font-size: 0.88rem;
+    color: var(--ink);
+    max-width: none;
+    margin-bottom: 0;
+  }
+
+  .research-card.is-draft .readout-item p{ color: var(--ink-faint); font-style: italic; }
+
+  /* ---------- SKILLS ---------- */
   .skills-grid{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -388,12 +497,13 @@
     main{ padding: 8px 24px 80px; max-width: 100%; }
     .skills-grid{ grid-template-columns: 1fr; }
     .timeline-track{ min-width: 420px; }
+    .readout{ grid-template-columns: 1fr; }
   }
 
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior: auto; }
     .pulse-dot{ animation: none; }
-    .card{ transition: none; }
+    .card, .research-card{ transition: none; }
   }
 </style>
 </head>
@@ -411,6 +521,7 @@
         <ul>
           <li><a href="#about" class="nav-link"><span class="bar"></span>About</a></li>
           <li><a href="#experience" class="nav-link"><span class="bar"></span>Experience</a></li>
+          <li><a href="#research" class="nav-link"><span class="bar"></span>Research</a></li>
           <li><a href="#skills" class="nav-link"><span class="bar"></span>Skills</a></li>
           <li><a href="#contact" class="nav-link"><span class="bar"></span>Contact</a></li>
         </ul>
@@ -434,7 +545,7 @@
       <div class="section-label"><span class="idx">01</span> About</div>
       <p>I'm a seventh-semester <strong>Software Engineering Technology</strong> student at Universitas Gadjah Mada's Sekolah Vokasi, with a backend-leaning profile built around <strong>databases, business logic, and system design</strong>.</p>
       <p>Most of what I know, I learned by shipping: a crowdfunding platform in Laravel, a role-based admin system in React, an AI-driven ERP chatbot, and — most recently — a full-stack community platform built and deployed end-to-end on my own infrastructure during KKN.</p>
-      <p>I'm currently exploring <strong>observability and distributed systems</strong> as a thesis direction, and building a small NLP portfolio on the side while applying for research assistant roles at the intersection of computational methods and social science.</p>
+      <p>I'm currently exploring <strong>observability and distributed systems</strong> as a final project direction, and building a small NLP portfolio on the side while applying for research assistant roles at the intersection of computational methods and social science.</p>
     </section>
 
     <section id="experience">
@@ -501,8 +612,33 @@
       </article>
     </section>
 
+    <section id="research">
+      <div class="section-label"><span class="idx">03</span> Research</div>
+
+      <article class="research-card">
+        <div class="research-title">Reasoning Without Reasons: Public Discourse on the O.J. Simpson Case</div>
+        <div class="status-line status-shipped"><span class="dot"></span>Shipped</div>
+        <p>An NLP analysis of how the public reasons about criminal evidence outside the courtroom, using YouTube comment data as a proxy for lay discourse on guilt and doubt.</p>
+        <div class="readout">
+          <div class="readout-item">
+            <h5>Method</h5>
+            <p>Scraped 3,619 YouTube comments across 3 documentaries via the YouTube Data API, filtered to 540 relevant comments, classified with zero-shot NLP (DeBERTa-v3) into three reasoning categories.</p>
+          </div>
+          <div class="readout-item">
+            <h5>Finding</h5>
+            <p>53.5% of substantive comments showed no evidentiary reasoning at all — among those that did, hasty conclusions (27.4%) outnumbered careful reasoning (19.1%).</p>
+          </div>
+        </div>
+        <div class="tags"><span>Python</span><span>YouTube Data API</span><span>Zero-shot Classification</span><span>NLP</span></div>
+        <div class="research-links">
+          <a href="https://drive.google.com/file/d/1L4pJpDocn-0q_3vEhcA3faCbUXBS7-Zn/view?usp=sharing" target="_blank" rel="noopener">Read analysis →</a>
+          <a href="https://github.com/fairuzlabs/ds-ojsimpson-nlp-analysis" target="_blank" rel="noopener" class="secondary">View notebook →</a>
+        </div>
+      </article>
+    </section>
+
     <section id="skills">
-      <div class="section-label"><span class="idx">03</span> Skills</div>
+      <div class="section-label"><span class="idx">04</span> Skills</div>
       <div class="skills-grid">
         <div class="skill-group">
           <h4>Languages &amp; Frameworks</h4>
@@ -540,7 +676,7 @@
     </section>
 
     <section id="contact">
-      <div class="section-label"><span class="idx">04</span> Contact</div>
+      <div class="section-label"><span class="idx">05</span> Contact</div>
       <p>Open to research assistant roles, backend engineering work, and anything at the intersection of systems and data. The fastest way to reach me is by email.</p>
       <a class="contact-cta" href="mailto:fairuzza.fza@gmail.com">Say hello →</a>
 
